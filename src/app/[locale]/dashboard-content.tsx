@@ -5,31 +5,33 @@ import { Server, Wifi, WifiOff, FolderKanban, ListTodo } from "lucide-react";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { MachineCard } from "@/components/machines/machine-card";
 import { useProject } from "@/providers/project-provider";
-import { machines, projects } from "@/data/mock-machines";
 import type { Dictionary } from "@/lib/dictionaries";
+import type { Machine, Project } from "@/lib/types";
 
 interface DashboardContentProps {
   dict: Dictionary;
+  machines: Machine[];
+  projects: Project[];
 }
 
-export function DashboardContent({ dict }: DashboardContentProps) {
+export function DashboardContent({ dict, machines, projects }: DashboardContentProps) {
   const { selectedProjectId } = useProject();
 
   const filtered = useMemo(
     () =>
       selectedProjectId
-        ? machines.filter((m) => m.projectId === selectedProjectId)
+        ? machines.filter((m) => m.project_id === selectedProjectId)
         : machines,
-    [selectedProjectId]
+    [selectedProjectId, machines]
   );
 
   const stats = useMemo(() => {
-    const staticIps = filtered.filter((m) => m.isStatic).length;
+    const staticIps = filtered.filter((m) => m.is_static).length;
     const activeTasks = filtered.reduce(
       (sum, m) => sum + m.tasks.filter((t) => !t.done).length,
       0
     );
-    const uniqueProjects = new Set(filtered.map((m) => m.projectId)).size;
+    const uniqueProjects = new Set(filtered.map((m) => m.project_id)).size;
 
     return { total: filtered.length, staticIps, dhcp: filtered.length - staticIps, activeTasks, uniqueProjects };
   }, [filtered]);
@@ -52,7 +54,7 @@ export function DashboardContent({ dict }: DashboardContentProps) {
         <h2 className="mb-4 text-lg font-medium tracking-tight">Machines</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map((machine) => (
-            <MachineCard key={machine.id} machine={machine} />
+            <MachineCard key={machine.id} machine={machine} projects={projects} />
           ))}
         </div>
       </div>

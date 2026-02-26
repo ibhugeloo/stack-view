@@ -7,7 +7,7 @@ import {
   CheckCircle2,
   Circle,
 } from "lucide-react";
-import type { Project } from "@/data/mock-machines";
+import type { Project } from "@/lib/types";
 import type { Dictionary } from "@/lib/dictionaries";
 
 interface ProjectStats {

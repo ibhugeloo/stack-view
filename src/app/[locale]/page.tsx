@@ -1,5 +1,7 @@
 import { getDictionary, type Locale } from "@/lib/dictionaries";
 import { DashboardContent } from "./dashboard-content";
+import { createClient } from "@/lib/supabase/server";
+import type { Machine, Project } from "@/lib/types";
 
 export default async function DashboardPage({
   params,
@@ -9,5 +11,17 @@ export default async function DashboardPage({
   const { locale } = await params;
   const dict = await getDictionary(locale as Locale);
 
-  return <DashboardContent dict={dict} />;
+  const supabase = await createClient();
+  const [{ data: machines }, { data: projects }] = await Promise.all([
+    supabase.from("machines").select("*").order("name"),
+    supabase.from("projects").select("*").order("name"),
+  ]);
+
+  return (
+    <DashboardContent
+      dict={dict}
+      machines={(machines as Machine[]) ?? []}
+      projects={(projects as Project[]) ?? []}
+    />
+  );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Circle } from "lucide-react";
-import type { Task } from "@/data/mock-machines";
+import type { Task } from "@/lib/types";
 
 interface TaskListProps {
   tasks: Task[];

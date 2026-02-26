@@ -10,28 +10,32 @@ import {
 } from "lucide-react";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { ProjectCard } from "@/components/projects/project-card";
-import { projects, machines } from "@/data/mock-machines";
-import { services } from "@/data/mock-services";
-import { domains } from "@/data/mock-domains";
+import { ProjectFormDialog } from "@/components/projects/project-form-dialog";
+import { ProjectDeleteButton } from "@/components/projects/project-delete-button";
 import type { Dictionary } from "@/lib/dictionaries";
+import type { Project, Machine, Service, Domain } from "@/lib/types";
 
 interface ProjectsContentProps {
   dict: Dictionary;
+  projects: Project[];
+  machines: Machine[];
+  services: Service[];
+  domains: Domain[];
 }
 
-export function ProjectsContent({ dict }: ProjectsContentProps) {
+export function ProjectsContent({ dict, projects, machines, services, domains }: ProjectsContentProps) {
   const [search, setSearch] = useState("");
 
   const projectsWithStats = useMemo(() => {
     return projects.map((project) => {
       const projectMachines = machines.filter(
-        (m) => m.projectId === project.id
+        (m) => m.project_id === project.id
       );
       const projectServices = services.filter(
-        (s) => s.projectId === project.id
+        (s) => s.project_id === project.id
       );
       const projectDomains = domains.filter(
-        (d) => d.projectId === project.id
+        (d) => d.project_id === project.id
       );
 
       // Aggregate tasks from machines + services
@@ -50,7 +54,7 @@ export function ProjectsContent({ dict }: ProjectsContentProps) {
         },
       };
     });
-  }, []);
+  }, [projects, machines, services, domains]);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return projectsWithStats;
@@ -72,7 +76,7 @@ export function ProjectsContent({ dict }: ProjectsContentProps) {
       totalMachines,
       totalServices,
     };
-  }, []);
+  }, [projects, machines, services]);
 
   return (
     <div className="space-y-6">
@@ -81,15 +85,18 @@ export function ProjectsContent({ dict }: ProjectsContentProps) {
         <h1 className="text-2xl font-semibold tracking-tight">
           {dict.projects.title}
         </h1>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder={dict.projects.search}
-            className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
-          />
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={dict.projects.search}
+              className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
+            />
+          </div>
+          <ProjectFormDialog dict={dict} />
         </div>
       </div>
 
@@ -124,12 +131,13 @@ export function ProjectsContent({ dict }: ProjectsContentProps) {
       {/* Project cards grid */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         {filtered.map(({ project, stats }) => (
-          <ProjectCard
-            key={project.id}
-            project={project}
-            stats={stats}
-            dict={dict}
-          />
+          <div key={project.id} className="relative group/card">
+            <ProjectCard project={project} stats={stats} dict={dict} />
+            <div className="absolute right-4 top-4 flex items-center gap-1 opacity-0 transition-opacity group-hover/card:opacity-100">
+              <ProjectFormDialog dict={dict} project={project} />
+              <ProjectDeleteButton id={project.id} dict={dict} />
+            </div>
+          </div>
         ))}
       </div>
     </div>

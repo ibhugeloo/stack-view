@@ -11,15 +11,18 @@ import {
 import { IpBadge } from "./ip-badge";
 import { OsIcon } from "./os-icon";
 import { TaskList } from "./task-list";
-import type { Machine } from "@/data/mock-machines";
+import { MachineFormDialog } from "@/components/machines/machine-form-dialog";
+import { MachineDeleteButton } from "@/components/machines/machine-delete-button";
+import type { Machine, Project } from "@/lib/types";
 import type { Dictionary } from "@/lib/dictionaries";
 
 interface MachineTableProps {
   machines: Machine[];
+  projects: Project[];
   dict: Dictionary;
 }
 
-export function MachineTable({ machines, dict }: MachineTableProps) {
+export function MachineTable({ machines, projects, dict }: MachineTableProps) {
   return (
     <div className="overflow-hidden rounded-xl border border-border/50">
       <Table>
@@ -30,6 +33,7 @@ export function MachineTable({ machines, dict }: MachineTableProps) {
             <TableHead className="font-medium">{dict.inventory.os}</TableHead>
             <TableHead className="font-medium">{dict.inventory.description}</TableHead>
             <TableHead className="font-medium">{dict.inventory.tasks}</TableHead>
+            <TableHead className="w-20" />
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -41,7 +45,7 @@ export function MachineTable({ machines, dict }: MachineTableProps) {
               <TableCell>
                 <IpBadge
                   ip={machine.ip}
-                  isStatic={machine.isStatic}
+                  isStatic={machine.is_static}
                   staticLabel={dict.inventory.static}
                   dhcpLabel={dict.inventory.dhcp}
                 />
@@ -54,6 +58,12 @@ export function MachineTable({ machines, dict }: MachineTableProps) {
               </TableCell>
               <TableCell>
                 <TaskList tasks={machine.tasks} />
+              </TableCell>
+              <TableCell>
+                <div className="flex items-center justify-end gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                  <MachineFormDialog dict={dict} projects={projects} machine={machine} />
+                  <MachineDeleteButton id={machine.id} dict={dict} />
+                </div>
               </TableCell>
             </TableRow>
           ))}

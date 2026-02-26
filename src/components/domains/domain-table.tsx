@@ -10,13 +10,15 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { ProviderBadge } from "./provider-badge";
+import { DomainFormDialog } from "./domain-form-dialog";
+import { DomainDeleteButton } from "./domain-delete-button";
 import { ExternalLink, Check, X } from "lucide-react";
-import { projects } from "@/data/mock-machines";
-import type { Domain } from "@/data/mock-domains";
+import type { Domain, Project } from "@/lib/types";
 import type { Dictionary } from "@/lib/dictionaries";
 
 interface DomainTableProps {
   domains: Domain[];
+  projects: Project[];
   dict: Dictionary;
 }
 
@@ -35,7 +37,7 @@ function daysUntil(iso: string) {
   return Math.ceil((target.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-export function DomainTable({ domains, dict }: DomainTableProps) {
+export function DomainTable({ domains, projects, dict }: DomainTableProps) {
   return (
     <div className="overflow-hidden rounded-xl border border-border/50">
       <Table>
@@ -47,14 +49,15 @@ export function DomainTable({ domains, dict }: DomainTableProps) {
             <TableHead className="font-medium">{dict.domains.expires}</TableHead>
             <TableHead className="font-medium">{dict.domains.autoRenew}</TableHead>
             <TableHead className="font-medium text-right">{dict.domains.dashboard}</TableHead>
+            <TableHead className="w-20" />
           </TableRow>
         </TableHeader>
         <TableBody>
           {domains.map((domain) => {
-            const days = daysUntil(domain.expiresAt);
+            const days = daysUntil(domain.expires_at);
             const isExpiringSoon = days <= 90;
-            const project = domain.projectId
-              ? projects.find((p) => p.id === domain.projectId)
+            const project = domain.project_id
+              ? projects.find((p) => p.id === domain.project_id)
               : null;
 
             return (
@@ -82,7 +85,7 @@ export function DomainTable({ domains, dict }: DomainTableProps) {
                 </TableCell>
                 <TableCell>
                   <span className="flex items-center gap-2 text-sm">
-                    {formatDate(domain.expiresAt)}
+                    {formatDate(domain.expires_at)}
                     {isExpiringSoon && (
                       <Badge
                         variant="destructive"
@@ -94,7 +97,7 @@ export function DomainTable({ domains, dict }: DomainTableProps) {
                   </span>
                 </TableCell>
                 <TableCell>
-                  {domain.autoRenew ? (
+                  {domain.auto_renew ? (
                     <span className="inline-flex items-center gap-1 text-sm text-emerald-600">
                       <Check className="h-3.5 w-3.5" />
                       {dict.domains.yes}
@@ -108,7 +111,7 @@ export function DomainTable({ domains, dict }: DomainTableProps) {
                 </TableCell>
                 <TableCell className="text-right">
                   <a
-                    href={domain.dashboardUrl}
+                    href={domain.dashboard_url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-lg border border-border/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-border hover:bg-accent hover:text-foreground"
@@ -116,6 +119,14 @@ export function DomainTable({ domains, dict }: DomainTableProps) {
                     {dict.domains.openDashboard}
                     <ExternalLink className="h-3 w-3" />
                   </a>
+                </TableCell>
+
+                {/* Actions */}
+                <TableCell>
+                  <div className="flex items-center justify-end gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                    <DomainFormDialog dict={dict} projects={projects} domain={domain} />
+                    <DomainDeleteButton id={domain.id} dict={dict} />
+                  </div>
                 </TableCell>
               </TableRow>
             );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useProject } from "@/providers/project-provider";
-import { projects } from "@/data/mock-machines";
 import {
   Select,
   SelectContent,
@@ -10,12 +9,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import type { Dictionary } from "@/lib/dictionaries";
+import type { Project } from "@/lib/types";
 
 interface ProjectSelectorProps {
   dict: Dictionary;
+  projects: Project[];
 }
 
-export function ProjectSelector({ dict }: ProjectSelectorProps) {
+export function ProjectSelector({ dict, projects }: ProjectSelectorProps) {
   const { selectedProjectId, setSelectedProjectId } = useProject();
 
   return (

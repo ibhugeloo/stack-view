@@ -10,12 +10,16 @@ import {
 } from "lucide-react";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { DomainTable } from "@/components/domains/domain-table";
+import { DomainFormDialog } from "@/components/domains/domain-form-dialog";
 import { useProject } from "@/providers/project-provider";
-import { domains, providerMeta } from "@/data/mock-domains";
+import { providerMeta } from "@/lib/types";
+import type { Domain, Project } from "@/lib/types";
 import type { Dictionary } from "@/lib/dictionaries";
 
 interface DomainsContentProps {
   dict: Dictionary;
+  domains: Domain[];
+  projects: Project[];
 }
 
 function daysUntil(iso: string) {
@@ -24,13 +28,13 @@ function daysUntil(iso: string) {
   return Math.ceil((target.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
 }
 
-export function DomainsContent({ dict }: DomainsContentProps) {
+export function DomainsContent({ dict, domains, projects }: DomainsContentProps) {
   const { selectedProjectId } = useProject();
   const [search, setSearch] = useState("");
 
   const filtered = useMemo(() => {
     let result = selectedProjectId
-      ? domains.filter((d) => d.projectId === selectedProjectId)
+      ? domains.filter((d) => d.project_id === selectedProjectId)
       : domains;
 
     if (search.trim()) {
@@ -43,12 +47,12 @@ export function DomainsContent({ dict }: DomainsContentProps) {
     }
 
     return result;
-  }, [selectedProjectId, search]);
+  }, [selectedProjectId, search, domains]);
 
   const stats = useMemo(() => {
-    const autoRenewCount = filtered.filter((d) => d.autoRenew).length;
+    const autoRenewCount = filtered.filter((d) => d.auto_renew).length;
     const expiringSoon = filtered.filter(
-      (d) => daysUntil(d.expiresAt) <= 90
+      (d) => daysUntil(d.expires_at) <= 90
     ).length;
     const uniqueProviders = new Set(filtered.map((d) => d.provider)).size;
 
@@ -61,15 +65,18 @@ export function DomainsContent({ dict }: DomainsContentProps) {
         <h1 className="text-2xl font-semibold tracking-tight">
           {dict.domains.title}
         </h1>
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder={dict.domains.search}
-            className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
-          />
+        <div className="flex items-center gap-3">
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={dict.domains.search}
+              className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
+            />
+          </div>
+          <DomainFormDialog dict={dict} projects={projects} />
         </div>
       </div>
 
@@ -100,7 +107,7 @@ export function DomainsContent({ dict }: DomainsContentProps) {
         />
       </div>
 
-      <DomainTable domains={filtered} dict={dict} />
+      <DomainTable domains={filtered} dict={dict} projects={projects} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { categoryMeta, type ServiceCategory } from "@/data/mock-services";
+import { categoryMeta, type ServiceCategory } from "@/lib/types";
 
 interface CategoryBadgeProps {
   category: ServiceCategory;

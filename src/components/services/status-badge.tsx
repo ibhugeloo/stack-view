@@ -1,6 +1,6 @@
 "use client";
 
-import { statusMeta, type ServiceStatus } from "@/data/mock-services";
+import { statusMeta, type ServiceStatus } from "@/lib/types";
 import type { Dictionary } from "@/lib/dictionaries";
 
 interface StatusBadgeProps {

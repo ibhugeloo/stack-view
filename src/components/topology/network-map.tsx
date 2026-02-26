@@ -14,21 +14,22 @@ import {
 import "@xyflow/react/dist/style.css";
 import { MachineNode } from "./machine-node";
 import { ProjectGroup } from "./project-group";
-import { machines, projects, type Machine } from "@/data/mock-machines";
+import type { Machine, Project } from "@/lib/types";
 
 const nodeTypes = {
   machine: MachineNode,
   projectGroup: ProjectGroup,
 };
 
-function buildTopology(filteredMachines: Machine[]) {
+function buildTopology(filteredMachines: Machine[], projects: Project[]) {
   const nodes: Node[] = [];
   const edges: Edge[] = [];
 
   const groupedByProject: Record<string, Machine[]> = {};
   for (const m of filteredMachines) {
-    if (!groupedByProject[m.projectId]) groupedByProject[m.projectId] = [];
-    groupedByProject[m.projectId].push(m);
+    const key = m.project_id ?? "none";
+    if (!groupedByProject[key]) groupedByProject[key] = [];
+    groupedByProject[key].push(m);
   }
 
   const projectIds = Object.keys(groupedByProject);
@@ -86,7 +87,7 @@ function buildTopology(filteredMachines: Machine[]) {
   const firewall = filteredMachines.find((m) => m.os === "pfsense");
   if (firewall) {
     projectIds.forEach((projectId) => {
-      if (projectId === firewall.projectId) return;
+      if (projectId === (firewall.project_id ?? "none")) return;
       const firstInGroup = groupedByProject[projectId]?.[0];
       if (firstInGroup) {
         edges.push({
@@ -104,20 +105,22 @@ function buildTopology(filteredMachines: Machine[]) {
 
 interface NetworkMapProps {
   selectedProjectId: string | null;
+  machines: Machine[];
+  projects: Project[];
 }
 
-export function NetworkMap({ selectedProjectId }: NetworkMapProps) {
+export function NetworkMap({ selectedProjectId, machines, projects }: NetworkMapProps) {
   const filteredMachines = useMemo(
     () =>
       selectedProjectId
-        ? machines.filter((m) => m.projectId === selectedProjectId)
+        ? machines.filter((m) => m.project_id === selectedProjectId)
         : machines,
-    [selectedProjectId]
+    [selectedProjectId, machines]
   );
 
   const { nodes: initialNodes, edges: initialEdges } = useMemo(
-    () => buildTopology(filteredMachines),
-    [filteredMachines]
+    () => buildTopology(filteredMachines, projects),
+    [filteredMachines, projects]
   );
 
   const [nodes, , onNodesChange] = useNodesState(initialNodes);

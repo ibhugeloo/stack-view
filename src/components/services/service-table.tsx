@@ -10,17 +10,20 @@ import {
 } from "@/components/ui/table";
 import { StatusBadge } from "./status-badge";
 import { CategoryBadge } from "./category-badge";
+import { ServiceFormDialog } from "./service-form-dialog";
+import { ServiceDeleteButton } from "./service-delete-button";
 import { ExternalLink, Check, Circle } from "lucide-react";
-import { machines, projects } from "@/data/mock-machines";
-import type { Service } from "@/data/mock-services";
+import type { Service, Machine, Project } from "@/lib/types";
 import type { Dictionary } from "@/lib/dictionaries";
 
 interface ServiceTableProps {
   services: Service[];
+  machines: Machine[];
+  projects: Project[];
   dict: Dictionary;
 }
 
-export function ServiceTable({ services, dict }: ServiceTableProps) {
+export function ServiceTable({ services, machines, projects, dict }: ServiceTableProps) {
   return (
     <div className="overflow-hidden rounded-xl border border-border/50">
       <Table>
@@ -33,15 +36,16 @@ export function ServiceTable({ services, dict }: ServiceTableProps) {
             <TableHead className="font-medium">{dict.services.port}</TableHead>
             <TableHead className="font-medium">{dict.services.tasks}</TableHead>
             <TableHead className="font-medium text-right">{dict.services.url}</TableHead>
+            <TableHead className="w-20" />
           </TableRow>
         </TableHeader>
         <TableBody>
           {services.map((svc) => {
-            const machine = svc.machineId
-              ? machines.find((m) => m.id === svc.machineId)
+            const machine = svc.machine_id
+              ? machines.find((m) => m.id === svc.machine_id)
               : null;
-            const project = svc.projectId
-              ? projects.find((p) => p.id === svc.projectId)
+            const project = svc.project_id
+              ? projects.find((p) => p.id === svc.project_id)
               : null;
             const done = svc.tasks.filter((t) => t.done).length;
 
@@ -165,6 +169,14 @@ export function ServiceTable({ services, dict }: ServiceTableProps) {
                       {dict.services.noUrl}
                     </span>
                   )}
+                </TableCell>
+
+                {/* Actions */}
+                <TableCell>
+                  <div className="flex items-center justify-end gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+                    <ServiceFormDialog dict={dict} projects={projects} machines={machines} service={svc} />
+                    <ServiceDeleteButton id={svc.id} dict={dict} />
+                  </div>
                 </TableCell>
               </TableRow>
             );

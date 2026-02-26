@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "../globals.css";
 import { getDictionary, type Locale } from "@/lib/dictionaries";
 import { ClientShell } from "./client-shell";
+import { AuthProvider } from "@/providers/auth-provider";
+import { createClient } from "@/lib/supabase/server";
+import type { Project } from "@/lib/types";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -14,10 +17,6 @@ export const metadata: Metadata = {
   description: "Infrastructure management made beautiful",
 };
 
-export async function generateStaticParams() {
-  return [{ locale: "fr" }, { locale: "en" }];
-}
-
 export default async function LocaleLayout({
   children,
   params,
@@ -28,12 +27,34 @@ export default async function LocaleLayout({
   const { locale } = await params;
   const dict = await getDictionary(locale as Locale);
 
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const projects: Project[] = [];
+  if (user) {
+    const { data } = await supabase
+      .from("projects")
+      .select("*")
+      .order("name");
+    if (data) projects.push(...(data as Project[]));
+  }
+
   return (
     <html lang={locale}>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ClientShell locale={locale} dict={dict}>
-          {children}
-        </ClientShell>
+        <AuthProvider initialUser={user}>
+          {user ? (
+            <ClientShell locale={locale} dict={dict} user={user} projects={projects}>
+              {children}
+            </ClientShell>
+          ) : (
+            <main className="flex min-h-screen items-center justify-center bg-background px-4">
+              {children}
+            </main>
+          )}
+        </AuthProvider>
       </body>
     </html>
   );

@@ -10,20 +10,19 @@ import {
 } from "lucide-react";
 import { StatCard } from "@/components/dashboard/stat-card";
 import { ServiceTable } from "@/components/services/service-table";
+import { ServiceFormDialog } from "@/components/services/service-form-dialog";
 import { useProject } from "@/providers/project-provider";
-import {
-  services,
-  categoryMeta,
-  statusMeta,
-  type ServiceStatus,
-} from "@/data/mock-services";
+import { categoryMeta, statusMeta, type ServiceStatus, type Service, type Machine, type Project } from "@/lib/types";
 import type { Dictionary } from "@/lib/dictionaries";
 
 interface ServicesContentProps {
   dict: Dictionary;
+  services: Service[];
+  machines: Machine[];
+  projects: Project[];
 }
 
-export function ServicesContent({ dict }: ServicesContentProps) {
+export function ServicesContent({ dict, services, machines, projects }: ServicesContentProps) {
   const { selectedProjectId } = useProject();
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<ServiceStatus | "all">(
@@ -32,7 +31,7 @@ export function ServicesContent({ dict }: ServicesContentProps) {
 
   const filtered = useMemo(() => {
     let result = selectedProjectId
-      ? services.filter((s) => s.projectId === selectedProjectId)
+      ? services.filter((s) => s.project_id === selectedProjectId)
       : services;
 
     if (statusFilter !== "all") {
@@ -50,11 +49,11 @@ export function ServicesContent({ dict }: ServicesContentProps) {
     }
 
     return result;
-  }, [selectedProjectId, statusFilter, search]);
+  }, [selectedProjectId, statusFilter, search, services]);
 
   const stats = useMemo(() => {
     const base = selectedProjectId
-      ? services.filter((s) => s.projectId === selectedProjectId)
+      ? services.filter((s) => s.project_id === selectedProjectId)
       : services;
 
     const running = base.filter((s) => s.status === "running").length;
@@ -62,7 +61,7 @@ export function ServicesContent({ dict }: ServicesContentProps) {
     const uniqueCategories = new Set(base.map((s) => s.category)).size;
 
     return { total: base.length, running, toTest, uniqueCategories };
-  }, [selectedProjectId]);
+  }, [selectedProjectId, services]);
 
   return (
     <div className="space-y-6">
@@ -101,6 +100,8 @@ export function ServicesContent({ dict }: ServicesContentProps) {
               className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
             />
           </div>
+
+          <ServiceFormDialog dict={dict} projects={projects} machines={machines} />
         </div>
       </div>
 
@@ -133,7 +134,7 @@ export function ServicesContent({ dict }: ServicesContentProps) {
       </div>
 
       {/* Table */}
-      <ServiceTable services={filtered} dict={dict} />
+      <ServiceTable services={filtered} dict={dict} machines={machines} projects={projects} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { providerMeta, type DomainProvider } from "@/data/mock-domains";
+import { providerMeta, type DomainProvider } from "@/lib/types";
 
 interface ProviderBadgeProps {
   provider: DomainProvider;
