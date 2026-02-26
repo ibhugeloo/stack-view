@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ interface SignupFormProps {
 
 export function SignupForm({ dict, locale }: SignupFormProps) {
   const supabase = createClient();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -24,7 +26,7 @@ export function SignupForm({ dict, locale }: SignupFormProps) {
     setLoading(true);
     setError(null);
 
-    const { error } = await supabase.auth.signUp({ email, password });
+    const { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
       setError(error.message);
@@ -32,6 +34,14 @@ export function SignupForm({ dict, locale }: SignupFormProps) {
       return;
     }
 
+    // If email confirmation is disabled, session is created immediately
+    if (data.session) {
+      router.push(`/${locale}`);
+      router.refresh();
+      return;
+    }
+
+    // Otherwise show "check your email"
     setSuccess(true);
     setLoading(false);
   }
