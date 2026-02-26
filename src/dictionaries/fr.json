@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "dashboard": "Tableau de bord",
+    "inventory": "Inventaire",
+    "topology": "Topologie"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "totalMachines": "Machines totales",
+    "staticIps": "IP statiques",
+    "dhcpIps": "IP DHCP",
+    "projects": "Projets",
+    "activeTasks": "Tâches actives"
+  },
+  "inventory": {
+    "title": "Inventaire",
+    "hostname": "Hostname",
+    "ip": "Adresse IP",
+    "os": "Système",
+    "description": "Description",
+    "tasks": "Tâches",
+    "static": "Statique",
+    "dhcp": "DHCP",
+    "search": "Rechercher une machine…"
+  },
+  "topology": {
+    "title": "Topologie réseau"
+  },
+  "common": {
+    "allProjects": "Tous les projets",
+    "selectProject": "Sélectionner un projet",
+    "language": "Langue",
+    "french": "Français",
+    "english": "Anglais"
+  }
+}
