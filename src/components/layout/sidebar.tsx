@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Table2, Network, Server } from "lucide-react";
+import { LayoutDashboard, Table2, Network, Globe, Boxes, FolderKanban, Server } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Dictionary } from "@/lib/dictionaries";
 
@@ -26,6 +26,21 @@ const navItems = (locale: string, dict: Dictionary) => [
     href: `/${locale}/topology`,
     label: dict.nav.topology,
     icon: Network,
+  },
+  {
+    href: `/${locale}/domains`,
+    label: dict.nav.domains,
+    icon: Globe,
+  },
+  {
+    href: `/${locale}/services`,
+    label: dict.nav.services,
+    icon: Boxes,
+  },
+  {
+    href: `/${locale}/projects`,
+    label: dict.nav.projects,
+    icon: FolderKanban,
   },
 ];
 

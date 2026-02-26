@@ -18,13 +18,44 @@ export interface Project {
   id: string;
   name: string;
   color: string;
+  description: string;
+  environment: "production" | "staging" | "development" | "infrastructure";
+  status: "active" | "maintenance" | "archived";
 }
 
 export const projects: Project[] = [
-  { id: "homelab", name: "Homelab", color: "#3b82f6" },
-  { id: "production", name: "Production", color: "#10b981" },
-  { id: "staging", name: "Staging", color: "#f59e0b" },
-  { id: "network", name: "Network", color: "#8b5cf6" },
+  {
+    id: "homelab",
+    name: "Homelab",
+    color: "#3b82f6",
+    description: "Lab perso — expérimentation, self-hosting et apprentissage infra",
+    environment: "development",
+    status: "active",
+  },
+  {
+    id: "production",
+    name: "Production",
+    color: "#10b981",
+    description: "Environnement de production — services clients et applications live",
+    environment: "production",
+    status: "active",
+  },
+  {
+    id: "staging",
+    name: "Staging",
+    color: "#f59e0b",
+    description: "Pré-production — tests d'intégration et validation avant déploiement",
+    environment: "staging",
+    status: "active",
+  },
+  {
+    id: "network",
+    name: "Network",
+    color: "#8b5cf6",
+    description: "Infrastructure réseau — firewall, VPN, routage et sécurité périmétrique",
+    environment: "infrastructure",
+    status: "active",
+  },
 ];
 
 export const machines: Machine[] = [
