@@ -24,7 +24,7 @@ export function ProjectSelector({ dict, projects }: ProjectSelectorProps) {
       value={selectedProjectId || "all"}
       onValueChange={(v) => setSelectedProjectId(v === "all" ? null : v)}
     >
-      <SelectTrigger className="w-48 border-border/50 bg-background/50">
+      <SelectTrigger className="w-48 border-sv-indigo/10 bg-background/50 backdrop-blur-sm">
         <SelectValue placeholder={dict.common.selectProject} />
       </SelectTrigger>
       <SelectContent>

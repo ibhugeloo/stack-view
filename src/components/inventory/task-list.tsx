@@ -20,7 +20,7 @@ export function TaskList({ tasks }: TaskListProps) {
         <span>{done}/{tasks.length}</span>
         <div className="h-1 w-16 overflow-hidden rounded-full bg-muted">
           <div
-            className="h-full rounded-full bg-primary transition-all"
+            className="h-full rounded-full bg-sv-cyan transition-all"
             style={{ width: `${(done / tasks.length) * 100}%` }}
           />
         </div>
@@ -29,7 +29,7 @@ export function TaskList({ tasks }: TaskListProps) {
         {tasks.slice(0, 3).map((task, i) => (
           <li key={i} className="flex items-center gap-1.5 text-xs">
             {task.done ? (
-              <Check className="h-3 w-3 text-primary" />
+              <Check className="h-3 w-3 text-sv-cyan" />
             ) : (
               <Circle className="h-3 w-3 text-muted-foreground" />
             )}

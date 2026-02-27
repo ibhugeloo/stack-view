@@ -50,12 +50,12 @@ export function Sidebar({ locale, dict }: SidebarProps) {
   const items = navItems(locale, dict);
 
   return (
-    <aside className="fixed left-0 top-0 z-30 flex h-screen w-60 flex-col border-r border-border/50 bg-background/80 backdrop-blur-xl">
-      <div className="flex h-14 items-center gap-2.5 border-b border-border/50 px-5">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-          <Server className="h-4 w-4 text-primary-foreground" />
+    <aside className="glass-dark fixed left-0 top-0 z-30 flex h-screen w-60 flex-col">
+      <div className="flex h-14 items-center gap-2.5 border-b border-white/10 px-5">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sv-cyan/20">
+          <Server className="h-4 w-4 text-sv-cyan" />
         </div>
-        <span className="text-base font-semibold tracking-tight">StackView</span>
+        <span className="text-base font-semibold tracking-tight text-white">StackView</span>
       </div>
 
       <nav className="flex-1 space-y-1 px-3 py-4">
@@ -72,8 +72,8 @@ export function Sidebar({ locale, dict }: SidebarProps) {
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150",
                 isActive
-                  ? "bg-accent text-accent-foreground shadow-sm"
-                  : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
+                  ? "border-l-2 border-sv-cyan bg-white/8 text-white shadow-[inset_0_0_12px_oklch(0.78_0.15_175_/_0.06)]"
+                  : "border-l-2 border-transparent text-white/60 hover:bg-white/5 hover:text-white"
               )}
             >
               <item.icon className="h-4 w-4" />
@@ -83,8 +83,8 @@ export function Sidebar({ locale, dict }: SidebarProps) {
         })}
       </nav>
 
-      <div className="border-t border-border/50 p-4">
-        <p className="text-xs text-muted-foreground">StackView v0.1</p>
+      <div className="border-t border-white/10 p-4">
+        <p className="text-xs text-white/40">StackView v0.1</p>
       </div>
     </aside>
   );

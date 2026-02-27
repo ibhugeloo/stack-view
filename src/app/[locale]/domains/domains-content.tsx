@@ -62,7 +62,7 @@ export function DomainsContent({ dict, domains, projects }: DomainsContentProps)
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="font-heading text-2xl font-bold text-sv-indigo dark:text-sv-cyan">
           {dict.domains.title}
         </h1>
         <div className="flex items-center gap-3">
@@ -73,7 +73,7 @@ export function DomainsContent({ dict, domains, projects }: DomainsContentProps)
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={dict.domains.search}
-              className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
+              className="input-glass w-64 pl-9 pr-3"
             />
           </div>
           <DomainFormDialog dict={dict} projects={projects} />
@@ -85,25 +85,25 @@ export function DomainsContent({ dict, domains, projects }: DomainsContentProps)
           label={dict.domains.totalDomains}
           value={stats.total}
           icon={Globe}
-          color="#3b82f6"
+          color="#00D4AA"
         />
         <StatCard
           label={dict.domains.autoRenewCount}
           value={stats.autoRenewCount}
           icon={RefreshCw}
-          color="#10b981"
+          color="#7C6FE0"
         />
         <StatCard
           label={dict.domains.expiringSoon}
           value={stats.expiringSoon}
           icon={AlertTriangle}
-          color="#f59e0b"
+          color="#F0A030"
         />
         <StatCard
           label={dict.domains.providers}
           value={stats.uniqueProviders}
           icon={Building2}
-          color="#8b5cf6"
+          color="#27187E"
         />
       </div>
 

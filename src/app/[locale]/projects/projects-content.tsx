@@ -82,7 +82,7 @@ export function ProjectsContent({ dict, projects, machines, services, domains }:
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="font-heading text-2xl font-bold text-sv-indigo dark:text-sv-cyan">
           {dict.projects.title}
         </h1>
         <div className="flex items-center gap-3">
@@ -93,7 +93,7 @@ export function ProjectsContent({ dict, projects, machines, services, domains }:
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={dict.projects.search}
-              className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
+              className="input-glass w-64 pl-9 pr-3"
             />
           </div>
           <ProjectFormDialog dict={dict} />
@@ -106,25 +106,25 @@ export function ProjectsContent({ dict, projects, machines, services, domains }:
           label={dict.projects.totalProjects}
           value={globalStats.total}
           icon={FolderKanban}
-          color="#3b82f6"
+          color="#00D4AA"
         />
         <StatCard
           label={dict.projects.activeProjects}
           value={globalStats.active}
           icon={FolderCheck}
-          color="#10b981"
+          color="#7C6FE0"
         />
         <StatCard
           label={dict.projects.totalMachines}
           value={globalStats.totalMachines}
           icon={Server}
-          color="#f59e0b"
+          color="#F0A030"
         />
         <StatCard
           label={dict.projects.totalServices}
           value={globalStats.totalServices}
           icon={Boxes}
-          color="#8b5cf6"
+          color="#27187E"
         />
       </div>
 

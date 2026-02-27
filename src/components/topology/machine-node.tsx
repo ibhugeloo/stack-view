@@ -32,12 +32,12 @@ function MachineNodeComponent({ data }: NodeProps) {
     <div className="group relative">
       <Handle type="target" position={Position.Top} className="!bg-border" />
       <div
-        className="flex min-w-[140px] items-center gap-2.5 rounded-xl border border-border/50 bg-card/95 px-3.5 py-2.5 shadow-sm backdrop-blur-sm transition-all duration-150 hover:border-border hover:shadow-md"
+        className="glass-card flex min-w-[140px] items-center gap-2.5 rounded-xl px-3.5 py-2.5 transition-all duration-150 hover:shadow-md"
         style={{ borderLeftWidth: 3, borderLeftColor: nodeData.projectColor }}
       >
         <Icon className="h-4 w-4 shrink-0 text-muted-foreground" />
         <div className="min-w-0">
-          <p className="truncate font-mono text-xs font-semibold">{nodeData.label}</p>
+          <p className="truncate font-heading text-xs font-semibold">{nodeData.label}</p>
           <p className="truncate text-[10px] text-muted-foreground">{nodeData.ip}</p>
         </div>
       </div>

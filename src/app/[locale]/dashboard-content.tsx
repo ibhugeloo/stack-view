@@ -39,19 +39,19 @@ export function DashboardContent({ dict, machines, projects }: DashboardContentP
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">{dict.dashboard.title}</h1>
+        <h1 className="font-heading text-2xl font-bold text-sv-indigo dark:text-sv-cyan">{dict.dashboard.title}</h1>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        <StatCard label={dict.dashboard.totalMachines} value={stats.total} icon={Server} color="#3b82f6" />
-        <StatCard label={dict.dashboard.staticIps} value={stats.staticIps} icon={Wifi} color="#10b981" />
-        <StatCard label={dict.dashboard.dhcpIps} value={stats.dhcp} icon={WifiOff} color="#f59e0b" />
-        <StatCard label={dict.dashboard.projects} value={stats.uniqueProjects} icon={FolderKanban} color="#8b5cf6" />
-        <StatCard label={dict.dashboard.activeTasks} value={stats.activeTasks} icon={ListTodo} color="#ef4444" />
+        <StatCard label={dict.dashboard.totalMachines} value={stats.total} icon={Server} color="#00D4AA" />
+        <StatCard label={dict.dashboard.staticIps} value={stats.staticIps} icon={Wifi} color="#7C6FE0" />
+        <StatCard label={dict.dashboard.dhcpIps} value={stats.dhcp} icon={WifiOff} color="#F0A030" />
+        <StatCard label={dict.dashboard.projects} value={stats.uniqueProjects} icon={FolderKanban} color="#27187E" />
+        <StatCard label={dict.dashboard.activeTasks} value={stats.activeTasks} icon={ListTodo} color="#E05A5A" />
       </div>
 
       <div>
-        <h2 className="mb-4 text-lg font-medium tracking-tight">Machines</h2>
+        <h2 className="mb-4 font-heading text-lg font-semibold text-sv-indigo dark:text-sv-cyan">Machines</h2>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {filtered.map((machine) => (
             <MachineCard key={machine.id} machine={machine} projects={projects} />

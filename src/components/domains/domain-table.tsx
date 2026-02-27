@@ -39,7 +39,7 @@ function daysUntil(iso: string) {
 
 export function DomainTable({ domains, projects, dict }: DomainTableProps) {
   return (
-    <div className="overflow-hidden rounded-xl border border-border/50">
+    <div className="glass-card overflow-hidden rounded-2xl">
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
@@ -89,7 +89,7 @@ export function DomainTable({ domains, projects, dict }: DomainTableProps) {
                     {isExpiringSoon && (
                       <Badge
                         variant="destructive"
-                        className="text-[10px] px-1.5 py-0"
+                        className="bg-sv-danger/15 text-sv-danger text-[10px] px-1.5 py-0"
                       >
                         {days}j
                       </Badge>

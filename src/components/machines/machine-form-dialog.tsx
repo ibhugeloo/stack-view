@@ -64,7 +64,7 @@ export function MachineFormDialog({ dict, projects, machine }: MachineFormDialog
                   name="name"
                   required
                   defaultValue={machine?.name}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="input-glass"
                 />
               </div>
               <div className="space-y-1.5">
@@ -73,7 +73,7 @@ export function MachineFormDialog({ dict, projects, machine }: MachineFormDialog
                   name="ip"
                   required
                   defaultValue={machine?.ip}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="input-glass"
                 />
               </div>
             </div>
@@ -84,7 +84,7 @@ export function MachineFormDialog({ dict, projects, machine }: MachineFormDialog
                 <select
                   name="os"
                   defaultValue={machine?.os ?? "ubuntu"}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="select-glass"
                 >
                   {OS_OPTIONS.map((os) => (
                     <option key={os} value={os}>{os}</option>
@@ -96,7 +96,7 @@ export function MachineFormDialog({ dict, projects, machine }: MachineFormDialog
                 <select
                   name="is_static"
                   defaultValue={machine?.is_static === false ? "false" : "true"}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="select-glass"
                 >
                   <option value="true">Static</option>
                   <option value="false">DHCP</option>
@@ -109,7 +109,7 @@ export function MachineFormDialog({ dict, projects, machine }: MachineFormDialog
               <select
                 name="project_id"
                 defaultValue={machine?.project_id ?? ""}
-                className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                className="select-glass"
               >
                 <option value="">— No project —</option>
                 {projects.map((p) => (

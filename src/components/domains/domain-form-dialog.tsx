@@ -74,7 +74,7 @@ export function DomainFormDialog({ dict, projects, domain }: DomainFormDialogPro
                 <select
                   name="provider"
                   defaultValue={domain?.provider ?? "cloudflare"}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="select-glass"
                 >
                   {PROVIDERS.map((p) => (
                     <option key={p} value={p}>{p}</option>
@@ -88,7 +88,7 @@ export function DomainFormDialog({ dict, projects, domain }: DomainFormDialogPro
                   type="date"
                   required
                   defaultValue={domain?.expires_at}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="input-glass"
                 />
               </div>
             </div>
@@ -109,7 +109,7 @@ export function DomainFormDialog({ dict, projects, domain }: DomainFormDialogPro
                 <select
                   name="project_id"
                   defaultValue={domain?.project_id ?? ""}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="select-glass"
                 >
                   <option value="">— None —</option>
                   {projects.map((p) => (

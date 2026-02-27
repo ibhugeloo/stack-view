@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "../globals.css";
 import { getDictionary, type Locale } from "@/lib/dictionaries";
 import { ClientShell } from "./client-shell";
@@ -9,6 +9,11 @@ import type { Project } from "@/lib/types";
 
 const inter = Inter({
   variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
 });
 
@@ -43,14 +48,16 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      <body className={`${inter.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <AuthProvider initialUser={user}>
           {user ? (
             <ClientShell locale={locale} dict={dict} user={user} projects={projects}>
               {children}
             </ClientShell>
           ) : (
-            <main className="flex min-h-screen items-center justify-center bg-background px-4">
+            <main className="relative flex min-h-screen items-center justify-center bg-background px-4 overflow-hidden">
+              <div className="pointer-events-none absolute -top-32 -left-32 h-96 w-96 rounded-full bg-sv-cyan/20 blur-3xl" />
+              <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-sv-violet/20 blur-3xl" />
               {children}
             </main>
           )}

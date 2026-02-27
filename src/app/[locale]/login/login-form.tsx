@@ -39,7 +39,7 @@ export function LoginForm({ dict, locale, next }: LoginFormProps) {
   }
 
   return (
-    <div className="w-full max-w-sm space-y-6">
+    <div className="glass-card glass-reflection w-full max-w-sm space-y-6 rounded-2xl p-8">
       <div className="space-y-1 text-center">
         <div className="mb-4 flex justify-center">
           <div className="flex items-center gap-2">
@@ -65,7 +65,7 @@ export function LoginForm({ dict, locale, next }: LoginFormProps) {
             required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+            className="input-glass"
           />
         </div>
 
@@ -76,13 +76,13 @@ export function LoginForm({ dict, locale, next }: LoginFormProps) {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+            className="input-glass"
           />
         </div>
 
         {error && <p className="text-sm text-destructive">{error}</p>}
 
-        <Button type="submit" className="w-full" disabled={loading}>
+        <Button type="submit" variant="cta" className="w-full" disabled={loading}>
           {loading ? dict.auth.loggingIn : dict.auth.login}
         </Button>
       </form>

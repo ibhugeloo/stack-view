@@ -14,10 +14,10 @@ export function MachineCard({ machine, projects }: MachineCardProps) {
   const project = projects.find((p) => p.id === machine.project_id);
 
   return (
-    <div className="group overflow-hidden rounded-2xl border border-border/50 bg-card/80 p-5 backdrop-blur-sm transition-all duration-200 hover:border-border hover:shadow-sm">
+    <div className="glass-card glass-reflection hover-lift group overflow-hidden rounded-2xl p-5">
       <div className="mb-3 flex items-start justify-between">
         <div>
-          <h3 className="font-mono text-sm font-semibold">{machine.name}</h3>
+          <h3 className="font-heading text-sm font-semibold">{machine.name}</h3>
           {project && (
             <div className="mt-1 flex items-center gap-1.5">
               <span

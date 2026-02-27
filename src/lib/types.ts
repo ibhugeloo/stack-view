@@ -116,10 +116,10 @@ export const statusMeta: Record<
   ServiceStatus,
   { label: string; labelEn: string; color: string }
 > = {
-  running:  { label: "Actif",    labelEn: "Running",  color: "#10b981" },
-  stopped:  { label: "Arrêté",   labelEn: "Stopped",  color: "#ef4444" },
-  degraded: { label: "Dégradé",  labelEn: "Degraded", color: "#f59e0b" },
-  to_test:  { label: "À tester", labelEn: "To Test",  color: "#6366f1" },
+  running:  { label: "Actif",    labelEn: "Running",  color: "#00D4AA" },
+  stopped:  { label: "Arrêté",   labelEn: "Stopped",  color: "#E05A5A" },
+  degraded: { label: "Dégradé",  labelEn: "Degraded", color: "#F0A030" },
+  to_test:  { label: "À tester", labelEn: "To Test",  color: "#7C6FE0" },
 };
 
 export const providerMeta: Record<

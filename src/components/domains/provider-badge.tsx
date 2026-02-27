@@ -11,7 +11,7 @@ export function ProviderBadge({ provider }: ProviderBadgeProps) {
 
   return (
     <span
-      className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium"
+      className="inline-flex items-center gap-1.5 rounded-full border border-white/20 px-2.5 py-0.5 text-xs font-medium backdrop-blur-sm"
       style={{
         backgroundColor: `${meta.color}12`,
         color: meta.color,

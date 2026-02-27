@@ -39,7 +39,7 @@ export function InventoryContent({ dict, machines, projects }: InventoryContentP
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">{dict.inventory.title}</h1>
+        <h1 className="font-heading text-2xl font-bold text-sv-indigo dark:text-sv-cyan">{dict.inventory.title}</h1>
         <div className="flex items-center gap-3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -48,7 +48,7 @@ export function InventoryContent({ dict, machines, projects }: InventoryContentP
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={dict.inventory.search}
-              className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
+              className="input-glass w-64 pl-9 pr-3"
             />
           </div>
           <MachineFormDialog dict={dict} projects={projects} />

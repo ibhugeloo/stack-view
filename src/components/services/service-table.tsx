@@ -25,7 +25,7 @@ interface ServiceTableProps {
 
 export function ServiceTable({ services, machines, projects, dict }: ServiceTableProps) {
   return (
-    <div className="overflow-hidden rounded-xl border border-border/50">
+    <div className="glass-card overflow-hidden rounded-2xl">
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
@@ -93,7 +93,7 @@ export function ServiceTable({ services, machines, projects, dict }: ServiceTabl
                 {/* Port */}
                 <TableCell>
                   {svc.port ? (
-                    <span className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+                    <span className="rounded bg-sv-indigo/5 px-1.5 py-0.5 font-heading text-xs text-sv-indigo dark:bg-sv-cyan/10 dark:text-sv-cyan">
                       :{svc.port}
                     </span>
                   ) : (

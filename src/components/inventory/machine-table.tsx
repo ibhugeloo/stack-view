@@ -24,7 +24,7 @@ interface MachineTableProps {
 
 export function MachineTable({ machines, projects, dict }: MachineTableProps) {
   return (
-    <div className="overflow-hidden rounded-xl border border-border/50">
+    <div className="glass-card overflow-hidden rounded-2xl">
       <Table>
         <TableHeader>
           <TableRow className="hover:bg-transparent">
@@ -39,7 +39,7 @@ export function MachineTable({ machines, projects, dict }: MachineTableProps) {
         <TableBody>
           {machines.map((machine) => (
             <TableRow key={machine.id} className="group">
-              <TableCell className="font-mono text-sm font-medium">
+              <TableCell className="font-heading text-sm font-medium">
                 {machine.name}
               </TableCell>
               <TableCell>

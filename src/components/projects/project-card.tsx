@@ -43,7 +43,7 @@ export function ProjectCard({ project, stats, dict }: ProjectCardProps) {
         : "#6b7280";
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-border/50 bg-card/80 p-6 backdrop-blur-sm transition-all duration-200 hover:border-border hover:shadow-md">
+    <div className="glass-card glass-reflection hover-lift group relative overflow-hidden rounded-2xl p-6">
       {/* Color accent bar */}
       <div
         className="absolute left-0 top-0 h-full w-1 rounded-l-2xl"
@@ -90,28 +90,28 @@ export function ProjectCard({ project, stats, dict }: ProjectCardProps) {
           />
           {statusLabel}
         </span>
-        <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+        <span className="inline-flex items-center rounded-full bg-sv-violet/10 px-2.5 py-0.5 text-xs font-medium text-sv-violet">
           {envLabel}
         </span>
       </div>
 
       {/* Resource counts */}
       <div className="mt-5 grid grid-cols-3 gap-3">
-        <div className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2">
+        <div className="flex items-center gap-2 rounded-lg bg-sv-indigo/[0.03] px-3 py-2">
           <Server className="h-3.5 w-3.5 text-muted-foreground" />
           <span className="text-sm font-medium">{stats.machineCount}</span>
           <span className="text-xs text-muted-foreground">
             {dict.projects.machines}
           </span>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2">
+        <div className="flex items-center gap-2 rounded-lg bg-sv-indigo/[0.03] px-3 py-2">
           <Boxes className="h-3.5 w-3.5 text-muted-foreground" />
           <span className="text-sm font-medium">{stats.serviceCount}</span>
           <span className="text-xs text-muted-foreground">
             {dict.projects.services}
           </span>
         </div>
-        <div className="flex items-center gap-2 rounded-lg bg-muted/50 px-3 py-2">
+        <div className="flex items-center gap-2 rounded-lg bg-sv-indigo/[0.03] px-3 py-2">
           <Globe className="h-3.5 w-3.5 text-muted-foreground" />
           <span className="text-sm font-medium">{stats.domainCount}</span>
           <span className="text-xs text-muted-foreground">

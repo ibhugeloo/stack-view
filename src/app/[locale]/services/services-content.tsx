@@ -67,7 +67,7 @@ export function ServicesContent({ dict, services, machines, projects }: Services
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <h1 className="font-heading text-2xl font-bold text-sv-indigo dark:text-sv-cyan">
           {dict.services.title}
         </h1>
         <div className="flex items-center gap-3">
@@ -77,7 +77,7 @@ export function ServicesContent({ dict, services, machines, projects }: Services
             onChange={(e) =>
               setStatusFilter(e.target.value as ServiceStatus | "all")
             }
-            className="h-9 rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+            className="select-glass w-auto"
           >
             <option value="all">{dict.services.allStatuses}</option>
             {(
@@ -97,7 +97,7 @@ export function ServicesContent({ dict, services, machines, projects }: Services
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={dict.services.search}
-              className="h-9 w-64 rounded-lg border border-border/50 bg-background/50 pl-9 pr-3 text-sm outline-none placeholder:text-muted-foreground focus:border-border focus:ring-1 focus:ring-ring"
+              className="input-glass w-64 pl-9 pr-3"
             />
           </div>
 
@@ -111,25 +111,25 @@ export function ServicesContent({ dict, services, machines, projects }: Services
           label={dict.services.totalServices}
           value={stats.total}
           icon={Boxes}
-          color="#3b82f6"
+          color="#00D4AA"
         />
         <StatCard
           label={dict.services.runningCount}
           value={stats.running}
           icon={Activity}
-          color="#10b981"
+          color="#7C6FE0"
         />
         <StatCard
           label={dict.services.toTestCount}
           value={stats.toTest}
           icon={FlaskConical}
-          color="#6366f1"
+          color="#27187E"
         />
         <StatCard
           label={dict.services.categories}
           value={stats.uniqueCategories}
           icon={Layers}
-          color="#f59e0b"
+          color="#F0A030"
         />
       </div>
 

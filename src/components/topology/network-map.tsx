@@ -127,7 +127,7 @@ export function NetworkMap({ selectedProjectId, machines, projects }: NetworkMap
   const [edges, , onEdgesChange] = useEdgesState(initialEdges);
 
   return (
-    <div className="h-[calc(100vh-8rem)] w-full overflow-hidden rounded-xl border border-border/50">
+    <div className="glass-card h-[calc(100vh-8rem)] w-full overflow-hidden rounded-2xl">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -139,7 +139,7 @@ export function NetworkMap({ selectedProjectId, machines, projects }: NetworkMap
         maxZoom={2}
         proOptions={{ hideAttribution: true }}
       >
-        <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="#e5e5e5" />
+        <Background variant={BackgroundVariant.Dots} gap={20} size={1} color="oklch(0.25 0.15 280 / 0.12)" />
         <Controls className="!rounded-lg !border-border/50 !shadow-sm" />
       </ReactFlow>
     </div>

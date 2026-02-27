@@ -75,7 +75,7 @@ export function ServiceFormDialog({ dict, projects, machines, service }: Service
                 <select
                   name="category"
                   defaultValue={service?.category ?? "web"}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="select-glass"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c} value={c}>{c}</option>
@@ -87,7 +87,7 @@ export function ServiceFormDialog({ dict, projects, machines, service }: Service
                 <select
                   name="status"
                   defaultValue={service?.status ?? "to_test"}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="select-glass"
                 >
                   {STATUSES.map((s) => (
                     <option key={s} value={s}>{s}</option>
@@ -102,7 +102,7 @@ export function ServiceFormDialog({ dict, projects, machines, service }: Service
                 <select
                   name="project_id"
                   defaultValue={service?.project_id ?? ""}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="select-glass"
                 >
                   <option value="">— None —</option>
                   {projects.map((p) => (
@@ -115,7 +115,7 @@ export function ServiceFormDialog({ dict, projects, machines, service }: Service
                 <select
                   name="machine_id"
                   defaultValue={service?.machine_id ?? ""}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="select-glass"
                 >
                   <option value="">— None —</option>
                   {machines.map((m) => (
@@ -132,7 +132,7 @@ export function ServiceFormDialog({ dict, projects, machines, service }: Service
                   name="url"
                   type="url"
                   defaultValue={service?.url ?? ""}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="input-glass"
                 />
               </div>
               <div className="space-y-1.5">
@@ -141,7 +141,7 @@ export function ServiceFormDialog({ dict, projects, machines, service }: Service
                   name="port"
                   type="number"
                   defaultValue={service?.port ?? ""}
-                  className="h-9 w-full rounded-lg border border-border/50 bg-background/50 px-3 text-sm outline-none focus:border-border focus:ring-1 focus:ring-ring"
+                  className="input-glass"
                 />
               </div>
             </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Globe, LogOut, User as UserIcon } from "lucide-react";
+import { Globe, LogOut, User as UserIcon, Search, Bell } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ProjectSelector } from "@/components/ui/project-selector";
@@ -33,13 +33,32 @@ export function Header({ locale, dict, user, projects }: HeaderProps) {
     return segments.join("/");
   };
 
+  const userInitial = (user.email ?? "U").charAt(0).toUpperCase();
+
   return (
-    <header className="fixed left-60 right-0 top-0 z-20 flex h-14 items-center justify-between border-b border-border/50 bg-background/80 px-6 backdrop-blur-xl">
+    <header className="glass-light fixed left-60 right-0 top-0 z-20 flex h-14 items-center justify-between px-6">
       <div className="flex items-center gap-4">
         <ProjectSelector dict={dict} projects={projects} />
+        <div className="relative hidden md:block">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            type="text"
+            placeholder="Search..."
+            className="input-glass w-64 pl-9 pr-3"
+            readOnly
+          />
+        </div>
       </div>
 
       <div className="flex items-center gap-2">
+        {/* Notifications (visual only) */}
+        <Button variant="ghost" size="icon-sm" className="relative text-muted-foreground">
+          <Bell className="h-4 w-4" />
+          <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-sv-cyan text-[9px] font-bold text-sv-indigo">
+            3
+          </span>
+        </Button>
+
         {/* Language switcher */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -61,9 +80,10 @@ export function Header({ locale, dict, user, projects }: HeaderProps) {
         {/* User menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground max-w-[200px]">
-              <UserIcon className="h-4 w-4 shrink-0" />
-              <span className="truncate text-xs">{user.email}</span>
+            <Button variant="ghost" size="sm" className="gap-2 text-muted-foreground">
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-sv-indigo text-xs font-bold text-white dark:bg-sv-cyan dark:text-sv-indigo">
+                {userInitial}
+              </div>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
